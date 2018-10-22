@@ -1,0 +1,17 @@
+class Config:
+    TRAINSET_FILE = 'trainset.pkl'
+    TESTSET_FILE = 'testset.pkl'
+    TRAIN_DIR = 'train'
+    TEST_DIR = 'test'
+    NEWDATA_DIR = 'newdata'
+    NEWDATA_FILE = 'newdataset.pkl'
+    SCALER_FILE = 'scaler.pkl'
+    SEQUENCIAL_MODEL_FILE = 'keras_model.pkl'
+    KNN_MODEL_FILE = 'knn_model.pkl'
+    MODEL_DIR = 'current'
+    LOGGING_FILE = 'logconfig.ini'
+    CLUSTERING_MODEL_FILE = 'clustering.pkl'
+
+    TEST_FACES = 'fixtures/faces'
+    SAVED_MODELS = 'output/models'
+    UNKNOWN_TAG = 'unknown'
