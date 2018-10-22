@@ -1,20 +1,20 @@
 # Test
 
-I addressed the first two problems using supervised techniques and the Problem 3 using an unsupervised approach.
-Therefore, the output Problem 1 and 2 will be a machine learning model that takes as input an image and outputs 
+I addressed Problem 1 and Problem 2 using supervised techniques and Problem 3 using an unsupervised approach.
+The output of Problem 1 and 2 will be a machine learning model that takes as input an image and outputs 
 the name of the person, or the tag 'unknown'. The output of Problem 3 will be a set of clusters.
 
 ## Preparing the data
 First I split the data in two sets:
- * a dataset that will be used in the development of the models
- * a dataset that will be used in the unittests for checking the accuracy of all the models. 
- The latter dataset makes around 10% of the original data set  and contains image of people 
- that will be known to the model, as well as unknown people.  
+ * a set that will be used in the development of the models
+ * a set that will be used in the unittests for checking the accuracy of all the models. 
+ This dataset makes around 10% of the original data set  and contains image of people 
+ known to the model, as well as unknown people.  
 
 ## Problem 1 & 2
 I have seen two solutions for these two problems:
-* a multi-class classification using the embeddings of each image
-* a binary classification using the distance between the embeddings of two images
+* a multi-class classification using the embeddings of each image.
+* a binary classification using the distance between the embeddings of two images.
 
 Therefore I implemented two approaches. The first solution is implemented using a KNN model and 
 the second solution is implemented using a Sequential model.
@@ -24,15 +24,14 @@ KNN creates a model that is based only on the observed classes, which makes it t
 for Problem 1. However, when a new images is given to the model, it will still be classified as 
 one of the people in the training set. To solve this pitfall, when the KNN model returns a class, 
 I compute the similarity between the embedding of the new image, and the vectors in the training set.
-If the mean of the similarity is lower than a threshold (I set it as 0.9), than I consider that the new image 
-belongs to the same class, if not it belongs to an unknown class.
+If the mean of the similarity is lower than a threshold (I set it as 0.9), then I consider that the new image 
+belongs to the same class, if not, it belongs to an unknown class.
 
 The sequential model, computes the vectorial distance between a new image and all the images from the training set.
 The model verifies if each distance corresponds to two similar images or not. 
-Then, I compute in which class the new image has more similar images, normalized by the class length, 
-and returns that class. 
-Therefore, this approach always can return the 'unknown' label, which makes it a good solution for 
-Problem 2. For Problem 1, when the model returns 'unknown', the system labels the same  new image 
+Then, I associate a class the new image, the class that has more similar images, normalized by the class length. 
+Therefore, this approach can return the 'unknown' label, which makes it a good solution for 
+Problem 2. For Problem 1, when the model returns 'unknown', the system labels the same image 
 using the KNN model.       
 
 ### Results
@@ -59,17 +58,17 @@ The results are good for both approaches, but there is a huge difference in runn
 
 I tackled the Problem 3 using a clustering approach. 
 
-The clustering algorithms are divided in two groups depending if we know or not the number of output clusters.
+The clustering algorithms are divided in two groups depending if the number of output clusters is known.
 In my opinion in this case the user doesn't know the number of clusters, however this was not specified in the problem, therefore I implemented two clustering algorithms:
 1. DBSCAN which automatically detects the number of clusters. 
 2. Hierarchical clustering, which takes as input the number of clusters.
 
 For the DBSCAN I need to provide the  maximum distance between two samples for them to be considered as in the same neighborhood.
 For the best results this parameter is dependent of the data set. In order to provide it, I took advantage of the fact 
-that I had some labeled images and I used the test set that I saved for the unittests and checked which distance is the most representative for the data set.
+that I had some labeled images and I used the test set that I saved for the unittests and I computed the distance that is the most representative for the data set.
 In case a labeled data set is not provided, this parameter should be detected by clustering using different values, and manually analyzing the resulting clusters.
   
-In case the final number of clusters is known, the algorithm used will be the hierarchical clustering.
+When the final number of clusters is known, the algorithm used will be the hierarchical clustering.
 
 * DBSCAN
 
@@ -111,7 +110,7 @@ I set it with 2.
 
 *How long does it take to run the grouping? Can it be done in real time?*
 
-It took in on my computer 30987.141 ms for a relatively small data set. 
+It took in on my computer 30987.141 ms. 
 Real-time responses are often understood to be in the order of milliseconds, therefore, in my opinion, the clustering algorithm cannot be done in real time. 
 
 
